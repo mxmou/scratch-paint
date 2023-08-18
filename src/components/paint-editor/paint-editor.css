@@ -7,6 +7,7 @@
     display: flex;
     flex-direction: column;
     padding: calc(3 * $grid-unit);
+    color: $text-primary;
 }
 
 .row {
@@ -172,13 +173,17 @@ $border-radius: 0.25rem;
 .bitmap-button {
     display: flex;
     border-radius: 5px;
-    background-color: $looks-secondary;
+    background-color: $motion-tertiary;
     padding: calc(2 * $grid-unit);
     line-height: 1.5rem;
     font-size: calc(3 * $grid-unit);
     font-weight: bold;
     color: white;
     justify-content: center;
+}
+
+.bitmap-button:active {
+    background-color: $motion-tertiary;
 }
 
 [dir="ltr"] .bitmap-button-icon {
