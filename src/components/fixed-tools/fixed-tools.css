@@ -32,6 +32,7 @@ $border-radius: 0.25rem;
     border: 1px solid $ui-pane-border;
     border-radius: 0;
     padding: .35rem;
+    color: $motion-accent;
 }
 
 [dir="ltr"] .button-group-button {
@@ -83,7 +84,6 @@ $border-radius: 0.25rem;
 .button-group-button-icon {
     width: 1.25rem;
     height: 1.25rem;
-    vertical-align: middle;
 }
 
 [dir="rtl"] .button-group-button-icon {

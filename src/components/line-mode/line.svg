@@ -4,9 +4,9 @@
     <title>line</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square">
-        <g id="line" stroke="#575E75" stroke-width="2">
-            <path d="M5,15 L15,5" id="Line"></path>
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square">
+        <g stroke="currentColor" stroke-width="2">
+            <path d="M5,15 L15,5"></path>
         </g>
     </g>
 </svg>

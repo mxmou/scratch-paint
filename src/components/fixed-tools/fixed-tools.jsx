@@ -19,6 +19,7 @@ import Label from '../forms/label.jsx';
 import LabeledIconButton from '../labeled-icon-button/labeled-icon-button.jsx';
 import layout from '../../lib/layout-constants';
 import {hideLabel} from '../../lib/hide-label';
+import InlineIcon from '../inline-icon/inline-icon.jsx';
 import styles from './fixed-tools.css';
 
 import groupIcon from './icons/group.svg';
@@ -127,13 +128,12 @@ const FixedToolsComponent = props => {
                         disabled={undoDisabled}
                         onClick={props.onUndo}
                     >
-                        <img
+                        <InlineIcon
                             alt={props.intl.formatMessage(messages.undo)}
                             className={classNames(
                                 styles.buttonGroupButtonIcon,
                                 styles.undoIcon
                             )}
-                            draggable={false}
                             src={undoIcon}
                         />
                     </Button>
@@ -149,10 +149,9 @@ const FixedToolsComponent = props => {
                         disabled={redoDisabled}
                         onClick={props.onRedo}
                     >
-                        <img
+                        <InlineIcon
                             alt={props.intl.formatMessage(messages.redo)}
                             className={styles.buttonGroupButtonIcon}
-                            draggable={false}
                             src={redoIcon}
                         />
                     </Button>

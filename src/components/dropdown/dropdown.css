@@ -7,19 +7,20 @@ $arrow-border-width: 14px;
     border-radius: 5px;
     overflow: visible;
     min-width: 3.5rem;
-    color: $motion-tertiary;
+    color: $motion-accent;
     padding: .5rem;
 }
 
 .mod-open {
     background-color: $form-border;
+    border-color: transparent;
 }
 
 .dropdown-icon {
     width: .5rem;
     height: .5rem;
-    vertical-align: middle;
-    padding-bottom: .2rem;
+    padding-bottom: 0.125rem;
+    color: $motion-accent;
 }
 
 [dir="ltr"] .dropdown-icon {
@@ -33,5 +34,5 @@ $arrow-border-width: 14px;
 .mod-caret-up {
     transform: rotate(180deg);
     padding-bottom: 0;
-    padding-top: .2rem;
+    padding-top: 0.125rem;
 }

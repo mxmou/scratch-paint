@@ -16,8 +16,8 @@
 }
 
 .mod-menu-item:hover {
-    background: $motion-tertiary;
-    color: white;
+    background: $motion-accent;
+    color: $text-on-accent;
 }
 
 .mod-context-menu {

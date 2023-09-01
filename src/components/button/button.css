@@ -9,11 +9,8 @@
     background-color: $motion-transparent;
 }
 .highlighted.button {
-    background-color: $motion-tertiary;
-    color: white;
-}
-.highlighted.button img {
-    filter: brightness(0) invert(1);
+    background-color: $motion-accent;
+    color: $text-on-accent;
 }
 .mod-disabled {
     cursor: auto;

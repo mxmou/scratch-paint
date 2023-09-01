@@ -16,6 +16,7 @@ import {defineMessages, injectIntl, intlShape} from 'react-intl';
 import Input from '../forms/input.jsx';
 import InputGroup from '../input-group/input-group.jsx';
 import LabeledIconButton from '../labeled-icon-button/labeled-icon-button.jsx';
+import InlineIcon from '../inline-icon/inline-icon.jsx';
 import Modes from '../../lib/modes';
 import Formats, {isBitmap, isVector} from '../../lib/format';
 import {hideLabel} from '../../lib/hide-label';
@@ -121,10 +122,9 @@ const ModeToolsComponent = props => {
         return (
             <div className={classNames(props.className, styles.modeTools)}>
                 <div>
-                    <img
+                    <InlineIcon
                         alt={props.intl.formatMessage(currentMessage)}
                         className={styles.modeToolsIcon}
-                        draggable={false}
                         src={currentIcon}
                     />
                 </div>
@@ -150,10 +150,9 @@ const ModeToolsComponent = props => {
         return (
             <div className={classNames(props.className, styles.modeTools)}>
                 <div>
-                    <img
+                    <InlineIcon
                         alt={props.intl.formatMessage(messages.eraserSize)}
                         className={styles.modeToolsIcon}
-                        draggable={false}
                         src={currentIcon}
                     />
                 </div>

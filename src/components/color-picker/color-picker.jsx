@@ -10,6 +10,7 @@ import LabeledIconButton from '../labeled-icon-button/labeled-icon-button.jsx';
 import styles from './color-picker.css';
 import GradientTypes from '../../lib/gradient-types';
 import {MIXED} from '../../helper/style-path';
+import InlineIcon from '../inline-icon/inline-icon.jsx';
 
 import eyeDropperIcon from './icons/eye-dropper.svg';
 import noFillIcon from '../color-button/no-fill.svg';
@@ -285,9 +286,8 @@ class ColorPickerComponent extends React.Component {
                             })}
                             onClick={this.props.onActivateEyeDropper}
                         >
-                            <img
+                            <InlineIcon
                                 className={styles.swatchIcon}
-                                draggable={false}
                                 src={eyeDropperIcon}
                             />
                         </div>

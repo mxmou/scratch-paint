@@ -33,6 +33,7 @@ import SelectMode from '../../containers/select-mode.jsx';
 import StrokeColorIndicatorComponent from '../../containers/stroke-color-indicator.jsx';
 import StrokeWidthIndicatorComponent from '../../containers/stroke-width-indicator.jsx';
 import TextMode from '../../containers/text-mode.jsx';
+import InlineIcon from '../inline-icon/inline-icon.jsx';
 
 import Formats, {isBitmap, isVector} from '../../lib/format';
 import styles from './paint-editor.css';
@@ -235,9 +236,8 @@ const PaintEditorComponent = props => (
                             className={styles.bitmapButton}
                             onClick={props.onSwitchToBitmap}
                         >
-                            <img
+                            <InlineIcon
                                 className={styles.bitmapButtonIcon}
-                                draggable={false}
                                 src={bitmapIcon}
                             />
                             <span className={styles.buttonText}>
@@ -249,9 +249,8 @@ const PaintEditorComponent = props => (
                                 className={styles.bitmapButton}
                                 onClick={props.onSwitchToVector}
                             >
-                                <img
+                                <InlineIcon
                                     className={styles.bitmapButtonIcon}
-                                    draggable={false}
                                     src={bitmapIcon}
                                 />
                                 <span className={styles.buttonText}>
@@ -266,10 +265,9 @@ const PaintEditorComponent = props => (
                                 className={styles.buttonGroupButton}
                                 onClick={props.onZoomOut}
                             >
-                                <img
+                                <InlineIcon
                                     alt="Zoom Out"
                                     className={styles.buttonGroupButtonIcon}
-                                    draggable={false}
                                     src={zoomOutIcon}
                                 />
                             </Button>
@@ -277,10 +275,9 @@ const PaintEditorComponent = props => (
                                 className={styles.buttonGroupButton}
                                 onClick={props.onZoomReset}
                             >
-                                <img
+                                <InlineIcon
                                     alt="Zoom Reset"
                                     className={styles.buttonGroupButtonIcon}
-                                    draggable={false}
                                     src={zoomResetIcon}
                                 />
                             </Button>
@@ -288,10 +285,9 @@ const PaintEditorComponent = props => (
                                 className={styles.buttonGroupButton}
                                 onClick={props.onZoomIn}
                             >
-                                <img
+                                <InlineIcon
                                     alt="Zoom In"
                                     className={styles.buttonGroupButtonIcon}
-                                    draggable={false}
                                     src={zoomInIcon}
                                 />
                             </Button>

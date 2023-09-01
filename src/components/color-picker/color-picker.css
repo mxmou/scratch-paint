@@ -29,7 +29,7 @@
 .row-header {
     font-family: "Helvetica Neue", Helvetica, sans-serif;
     font-size: 0.65rem;
-    color: #575E75;
+    color: $text-primary;
     margin: 8px;
 }
 
@@ -46,7 +46,7 @@
 }
 
 .divider {
-    border-top: 1px solid #ddd;
+    border-top: 1px solid var(--ui-black-transparent, #ddd);
     margin: 8px;
 }
 
@@ -62,7 +62,7 @@
 .swatch {
     width: 1.5rem;
     height: 1.5rem;
-    border: 1px solid #ddd;
+    border: 1px solid var(--ui-black-transparent, #ddd);
     border-radius: 4px;
     box-sizing: content-box;
     display: flex;
@@ -80,7 +80,7 @@
 }
 
 .active-swatch {
-    border: 1px solid $motion-tertiary;
+    border: 1px solid $motion-accent;
     box-shadow: 0px 0px 0px 3px $motion-transparent;
 }
 

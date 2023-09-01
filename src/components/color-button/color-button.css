@@ -1,3 +1,5 @@
+@import "../../css/colors.css";
+
 .color-button {
     height: 2rem;
     width: 3rem;
@@ -11,7 +13,8 @@
     flex-basis: 2rem;
     flex-shrink: 0;
     height: 100%;
-    border: 1px solid rgba(0, 0, 0, 0.25);
+    background-clip: padding-box !important; /* override style attribute */
+    border: 1px solid var(--ui-black-transparent, rgba(0, 0, 0, 0.25));
 }
 
 [dir="ltr"] .color-button-swatch {
@@ -32,11 +35,11 @@
     flex-shrink: 0;
     height: 100%;
 
-    border: 1px solid rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--ui-black-transparent, rgba(0, 0, 0, 0.25));
 
     align-items: center;
     justify-content: center;
-    color: #575e75;
+    color: $text-primary;
     font-size: 0.75rem;
 }
 
@@ -66,8 +69,8 @@
     left: calc(0.5rem);
     width: 0.75rem;
     height: 0.75rem;
-    background: white;
-    border: 1px solid rgba(0, 0, 0, 0.25);
+    background: $ui-white-bg;
+    border: 1px solid var(--ui-black-transparent, rgba(0, 0, 0, 0.25));
     /* Make sure it appears below the transparent icon */
     z-index: 1;
 }

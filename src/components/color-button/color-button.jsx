@@ -10,10 +10,12 @@ import styles from './color-button.css';
 import GradientTypes from '../../lib/gradient-types';
 import log from '../../log/log';
 
+const WHITE = 'var(--ui-white-bg, white)';
+
 const colorToBackground = (color, color2, gradientType) => {
-    if (color === MIXED || (gradientType !== GradientTypes.SOLID && color2 === MIXED)) return 'white';
-    if (color === null) color = 'white';
-    if (color2 === null) color2 = 'white';
+    if (color === MIXED || (gradientType !== GradientTypes.SOLID && color2 === MIXED)) return WHITE;
+    if (color === null) color = WHITE;
+    if (color2 === null) color2 = WHITE;
     switch (gradientType) {
     case GradientTypes.SOLID: return color;
     case GradientTypes.HORIZONTAL: return `linear-gradient(to right, ${color}, ${color2})`;
