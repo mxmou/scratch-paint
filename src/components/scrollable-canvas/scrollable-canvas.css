@@ -2,7 +2,7 @@ $scrollbar-size: 8px;
 $scrollbar-padding: 4px;
 
 .vertical-scrollbar, .horizontal-scrollbar {
-    background: rgba(190, 190, 190, 0.8);
+    background: var(--paint-scrollbar, rgba(190, 190, 190, 0.8));
     border-radius: calc($scrollbar-size / 2);
     width: 100%;
     height: 100%;

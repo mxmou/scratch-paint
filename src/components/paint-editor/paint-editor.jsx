@@ -205,6 +205,7 @@ const PaintEditorComponent = props => (
                 >
                     <PaperCanvas
                         canvasRef={props.setCanvas}
+                        darkTheme={props.darkTheme}
                         image={props.image}
                         imageFormat={props.imageFormat}
                         imageId={props.imageId}
@@ -304,6 +305,7 @@ PaintEditorComponent.propTypes = {
     canUndo: PropTypes.func.isRequired,
     canvas: PropTypes.instanceOf(Element),
     colorInfo: Loupe.propTypes.colorInfo,
+    darkTheme: PropTypes.bool,
     format: PropTypes.oneOf(Object.keys(Formats)),
     image: PropTypes.oneOfType([
         PropTypes.string,

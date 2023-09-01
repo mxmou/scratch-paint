@@ -9,7 +9,7 @@ import log from '../log/log';
 import {performSnapshot} from '../helper/undo';
 import {undoSnapshot, clearUndoState} from '../reducers/undo';
 import {isGroup, ungroupItems} from '../helper/group';
-import {clearRaster, convertBackgroundGuideLayer, getRaster, setupLayers} from '../helper/layer';
+import {clearRaster, convertBackgroundGuideLayer, getRaster, setupLayers, toggleDarkTheme} from '../helper/layer';
 import {clearSelectedItems} from '../reducers/selected-items';
 import {
     ART_BOARD_WIDTH, ART_BOARD_HEIGHT, CENTER, MAX_WORKSPACE_BOUNDS,
@@ -63,6 +63,7 @@ class PaperCanvas extends React.Component {
         paper.settings.handleSize = 0;
         // Make layers.
         setupLayers(this.props.format);
+        this.updateTheme();
         this.importImage(
             this.props.imageFormat, this.props.image, this.props.rotationCenterX, this.props.rotationCenterY);
     }
@@ -75,6 +76,11 @@ class PaperCanvas extends React.Component {
         if (this.props.format !== newProps.format) {
             this.recalibrateSize();
             convertBackgroundGuideLayer(newProps.format);
+        }
+    }
+    componentDidUpdate (prevProps) {
+        if (this.props.darkTheme !== prevProps.darkTheme) {
+            this.updateTheme();
         }
     }
     componentWillUnmount () {
@@ -328,6 +334,9 @@ class PaperCanvas extends React.Component {
             if (callback) callback();
         }, 0);
     }
+    updateTheme () {
+        toggleDarkTheme(this.props.darkTheme);
+    }
     setCanvas (canvas) {
         this.canvas = canvas;
         if (this.props.canvasRef) {
@@ -354,6 +363,7 @@ PaperCanvas.propTypes = {
     clearSelectedItems: PropTypes.func.isRequired,
     clearUndo: PropTypes.func.isRequired,
     cursor: PropTypes.string,
+    darkTheme: PropTypes.bool,
     format: PropTypes.oneOf(Object.keys(Formats)),
     image: PropTypes.oneOfType([
         PropTypes.string,

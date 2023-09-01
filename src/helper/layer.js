@@ -8,6 +8,17 @@ const CHECKERBOARD_SIZE = 8;
 const CROSSHAIR_SIZE = 16;
 const CROSSHAIR_FULL_OPACITY = 0.75;
 
+const WORKSPACE_BACKGROUND_LIGHT = '#ECF1F9';
+const ART_BOARD_BACKGROUND_LIGHT = '#FFFFFF';
+const CHECKERBOARD_COLOR_LIGHT = '#D9E3F2';
+const OUTLINE_COLOR_LIGHT = '#FFFFFF';
+const OUTLINE_COLOR_ACCENT = '#4280d7';
+
+const WORKSPACE_BACKGROUND_DARK = '#2B2F3B';
+const ART_BOARD_BACKGROUND_DARK = '#363B49';
+const CHECKERBOARD_COLOR_DARK = '#272A35';
+const OUTLINE_COLOR_DARK = '#363B49';
+
 const _getLayer = function (layerString) {
     for (const layer of paper.project.layers) {
         if (layer.data && layer.data[layerString]) {
@@ -198,7 +209,7 @@ const _makeBackgroundPaper = function (width, height, color, opacity) {
     const vRect = new paper.Shape.Rectangle(
         new paper.Point(0, 0),
         new paper.Point(ART_BOARD_WIDTH / CHECKERBOARD_SIZE, ART_BOARD_HEIGHT / CHECKERBOARD_SIZE));
-    vRect.fillColor = '#fff';
+    vRect.fillColor = ART_BOARD_BACKGROUND_LIGHT;
     vRect.guide = true;
     vRect.locked = true;
     vRect.position = CENTER;
@@ -215,6 +226,8 @@ const _makeBackgroundPaper = function (width, height, color, opacity) {
     mask.locked = true;
     mask.scale(1 / CHECKERBOARD_SIZE);
     const vGroup = new paper.Group([vRect, vPath, mask]);
+    vGroup.rect = vRect;
+    vGroup.path = vPath;
     mask.clipMask = true;
     return vGroup;
 };
@@ -274,11 +287,12 @@ const _makeOutlineLayer = function () {
     const outlineLayer = new paper.Layer();
     const whiteRect = new paper.Shape.Rectangle(ART_BOARD_BOUNDS.expand(1));
     whiteRect.strokeWidth = 2;
-    whiteRect.strokeColor = 'white';
+    whiteRect.strokeColor = OUTLINE_COLOR_LIGHT;
+    outlineLayer.whiteRect = whiteRect;
     setGuideItem(whiteRect);
     const blueRect = new paper.Shape.Rectangle(ART_BOARD_BOUNDS.expand(5));
     blueRect.strokeWidth = 2;
-    blueRect.strokeColor = '#4280D7';
+    blueRect.strokeColor = OUTLINE_COLOR_ACCENT;
     blueRect.opacity = 0.25;
     setGuideItem(blueRect);
     outlineLayer.data.isOutlineLayer = true;
@@ -290,7 +304,7 @@ const _makeBackgroundGuideLayer = function (format) {
     guideLayer.locked = true;
     
     const vWorkspaceBounds = new paper.Shape.Rectangle(MAX_WORKSPACE_BOUNDS);
-    vWorkspaceBounds.fillColor = '#ECF1F9';
+    vWorkspaceBounds.fillColor = WORKSPACE_BACKGROUND_LIGHT;
     vWorkspaceBounds.position = CENTER;
 
     // Add 1 to the height because it's an odd number otherwise, and we want it to be even
@@ -298,20 +312,22 @@ const _makeBackgroundGuideLayer = function (format) {
     const vBackground = _makeBackgroundPaper(
         MAX_WORKSPACE_BOUNDS.width / CHECKERBOARD_SIZE,
         (MAX_WORKSPACE_BOUNDS.height / CHECKERBOARD_SIZE) + 1,
-        '#D9E3F2', 0.55);
+        CHECKERBOARD_COLOR_LIGHT, 0.55);
     vBackground.position = CENTER;
     vBackground.scaling = new paper.Point(CHECKERBOARD_SIZE, CHECKERBOARD_SIZE);
 
     const vectorBackground = new paper.Group();
     vectorBackground.addChild(vWorkspaceBounds);
     vectorBackground.addChild(vBackground);
+    vectorBackground.workspaceBounds = vWorkspaceBounds;
+    vectorBackground.background = vBackground;
     setGuideItem(vectorBackground);
     guideLayer.vectorBackground = vectorBackground;
 
     const bitmapBackground = _makeBackgroundPaper(
         ART_BOARD_WIDTH / CHECKERBOARD_SIZE,
         ART_BOARD_HEIGHT / CHECKERBOARD_SIZE,
-        '#D9E3F2', 0.55);
+        CHECKERBOARD_COLOR_LIGHT, 0.55);
     bitmapBackground.position = CENTER;
     bitmapBackground.scaling = new paper.Point(CHECKERBOARD_SIZE, CHECKERBOARD_SIZE);
     bitmapBackground.guide = true;
@@ -340,6 +356,26 @@ const setupLayers = function (format) {
     paintLayer.activate();
 };
 
+const toggleDarkTheme = function (dark) {
+    const backgroundGuideLayer = getBackgroundGuideLayer();
+    const outlineLayer = _getLayer('isOutlineLayer');
+    if (dark) {
+        backgroundGuideLayer.vectorBackground.workspaceBounds.fillColor = WORKSPACE_BACKGROUND_DARK;
+        backgroundGuideLayer.vectorBackground.background.rect.fillColor = ART_BOARD_BACKGROUND_DARK;
+        backgroundGuideLayer.vectorBackground.background.path.fillColor = CHECKERBOARD_COLOR_DARK;
+        backgroundGuideLayer.bitmapBackground.rect.fillColor = ART_BOARD_BACKGROUND_DARK;
+        backgroundGuideLayer.bitmapBackground.path.fillColor = CHECKERBOARD_COLOR_DARK;
+        outlineLayer.whiteRect.strokeColor = OUTLINE_COLOR_DARK;
+    } else {
+        backgroundGuideLayer.vectorBackground.workspaceBounds.fillColor = WORKSPACE_BACKGROUND_LIGHT;
+        backgroundGuideLayer.vectorBackground.background.rect.fillColor = ART_BOARD_BACKGROUND_LIGHT;
+        backgroundGuideLayer.vectorBackground.background.path.fillColor = CHECKERBOARD_COLOR_LIGHT;
+        backgroundGuideLayer.bitmapBackground.rect.fillColor = ART_BOARD_BACKGROUND_LIGHT;
+        backgroundGuideLayer.bitmapBackground.path.fillColor = CHECKERBOARD_COLOR_LIGHT;
+        outlineLayer.whiteRect.strokeColor = OUTLINE_COLOR_LIGHT;
+    }
+};
+
 export {
     CROSSHAIR_SIZE,
     CROSSHAIR_FULL_OPACITY,
@@ -353,5 +389,6 @@ export {
     clearRaster,
     getRaster,
     setGuideItem,
-    setupLayers
+    setupLayers,
+    toggleDarkTheme
 };
