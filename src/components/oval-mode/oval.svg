@@ -4,9 +4,9 @@
     <title>oval</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
-    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g stroke-width="1.5" stroke="currentColor">
-            <circle cx="10" cy="10" r="5"></circle>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="oval" stroke-width="1.5" stroke="#575E75">
+            <circle id="oval-icon" cx="10" cy="10" r="5"></circle>
         </g>
     </g>
 </svg>

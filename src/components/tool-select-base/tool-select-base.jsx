@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import {injectIntl, intlShape} from 'react-intl';
 
 import Button from '../button/button.jsx';
-import InlineIcon from '../inline-icon/inline-icon.jsx';
 
 import styles from './tool-select-base.css';
 
@@ -19,10 +18,11 @@ const ToolSelectComponent = props => (
         title={props.intl.formatMessage(props.imgDescriptor)}
         onClick={props.onMouseDown}
     >
-        <InlineIcon
+        <img
             alt={props.intl.formatMessage(props.imgDescriptor)}
             className={styles.toolSelectIcon}
-            src={props.imgSrc}
+            draggable={false}
+            src={props.isSelected && props.selectedImgSrc ? props.selectedImgSrc : props.imgSrc}
         />
     </Button>
 );
@@ -38,7 +38,8 @@ ToolSelectComponent.propTypes = {
     imgSrc: PropTypes.string.isRequired,
     intl: intlShape.isRequired,
     isSelected: PropTypes.bool.isRequired,
-    onMouseDown: PropTypes.func.isRequired
+    onMouseDown: PropTypes.func.isRequired,
+    selectedImgSrc: PropTypes.string
 };
 
 export default injectIntl(ToolSelectComponent);

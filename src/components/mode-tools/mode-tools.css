@@ -28,3 +28,11 @@
     height: 2.85rem; /* for the second row so the dashed borders are equal in size */
     align-items: center;
 }
+
+[dir="ltr"] .bitmap-outline-width-input {
+    padding-left: calc(2 * $grid-unit);
+}
+
+[dir="rtl"] .bitmap-outline-width-input {
+    padding-right: calc(2 * $grid-unit);
+}

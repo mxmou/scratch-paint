@@ -41,7 +41,8 @@ class BitBrushMode extends React.Component {
         }
     }
     shouldComponentUpdate (nextProps) {
-        return nextProps.isBitBrushModeActive !== this.props.isBitBrushModeActive;
+        return nextProps.isBitBrushModeActive !== this.props.isBitBrushModeActive ||
+            nextProps.darkTheme !== this.props.darkTheme;
     }
     componentWillUnmount () {
         if (this.tool) {
@@ -73,6 +74,7 @@ class BitBrushMode extends React.Component {
     render () {
         return (
             <BitBrushModeComponent
+                darkTheme={this.props.darkTheme}
                 isSelected={this.props.isBitBrushModeActive}
                 onMouseDown={this.props.handleMouseDown}
             />
@@ -85,6 +87,7 @@ BitBrushMode.propTypes = {
     clearGradient: PropTypes.func.isRequired,
     clearSelectedItems: PropTypes.func.isRequired,
     color: PropTypes.string,
+    darkTheme: PropTypes.bool,
     handleMouseDown: PropTypes.func.isRequired,
     isBitBrushModeActive: PropTypes.bool.isRequired,
     onChangeFillColor: PropTypes.func.isRequired,
@@ -94,6 +97,7 @@ BitBrushMode.propTypes = {
 const mapStateToProps = state => ({
     bitBrushSize: state.scratchPaint.bitBrushSize,
     color: state.scratchPaint.color.fillColor.primary,
+    darkTheme: state.scratchPaint.theme.darkTheme,
     isBitBrushModeActive: state.scratchPaint.mode === Modes.BIT_BRUSH
 });
 const mapDispatchToProps = dispatch => ({

@@ -386,7 +386,8 @@ const mapStateToProps = state => ({
     mode: state.scratchPaint.mode,
     cursor: state.scratchPaint.cursor,
     format: state.scratchPaint.format,
-    zoomLevels: state.scratchPaint.zoomLevels
+    zoomLevels: state.scratchPaint.zoomLevels,
+    darkTheme: state.scratchPaint.theme.darkTheme
 });
 const mapDispatchToProps = dispatch => ({
     undoSnapshot: snapshot => {

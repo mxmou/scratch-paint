@@ -46,7 +46,8 @@ class BrushMode extends React.Component {
         }
     }
     shouldComponentUpdate (nextProps) {
-        return nextProps.isBrushModeActive !== this.props.isBrushModeActive;
+        return nextProps.isBrushModeActive !== this.props.isBrushModeActive ||
+            nextProps.darkTheme !== this.props.darkTheme;
     }
     componentWillUnmount () {
         if (this.blob.tool) {
@@ -75,6 +76,7 @@ class BrushMode extends React.Component {
     render () {
         return (
             <BrushModeComponent
+                darkTheme={this.props.darkTheme}
                 isSelected={this.props.isBrushModeActive}
                 onMouseDown={this.props.handleMouseDown}
             />
@@ -93,6 +95,7 @@ BrushMode.propTypes = {
         strokeColor: ColorStyleProptype,
         strokeWidth: PropTypes.number
     }).isRequired,
+    darkTheme: PropTypes.bool,
     handleMouseDown: PropTypes.func.isRequired,
     isBrushModeActive: PropTypes.bool.isRequired,
     onChangeFillColor: PropTypes.func.isRequired,
@@ -102,6 +105,7 @@ BrushMode.propTypes = {
 const mapStateToProps = state => ({
     brushModeState: state.scratchPaint.brushMode,
     colorState: state.scratchPaint.color,
+    darkTheme: state.scratchPaint.theme.darkTheme,
     isBrushModeActive: state.scratchPaint.mode === Modes.BRUSH
 });
 const mapDispatchToProps = dispatch => ({

@@ -47,7 +47,8 @@ class RectMode extends React.Component {
         }
     }
     shouldComponentUpdate (nextProps) {
-        return nextProps.isRectModeActive !== this.props.isRectModeActive;
+        return nextProps.isRectModeActive !== this.props.isRectModeActive ||
+            nextProps.darkTheme !== this.props.darkTheme;
     }
     componentWillUnmount () {
         if (this.tool) {
@@ -120,6 +121,7 @@ class RectMode extends React.Component {
     render () {
         return (
             <RectModeComponent
+                darkTheme={this.props.darkTheme}
                 isSelected={this.props.isRectModeActive}
                 onMouseDown={this.props.handleMouseDown}
             />
@@ -136,6 +138,7 @@ RectMode.propTypes = {
         strokeColor: ColorStyleProptype,
         strokeWidth: PropTypes.number
     }).isRequired,
+    darkTheme: PropTypes.bool,
     handleMouseDown: PropTypes.func.isRequired,
     isRectModeActive: PropTypes.bool.isRequired,
     onChangeFillColor: PropTypes.func.isRequired,
@@ -148,6 +151,7 @@ RectMode.propTypes = {
 
 const mapStateToProps = state => ({
     colorState: state.scratchPaint.color,
+    darkTheme: state.scratchPaint.theme.darkTheme,
     isRectModeActive: state.scratchPaint.mode === Modes.RECT,
     selectedItems: state.scratchPaint.selectedItems
 });

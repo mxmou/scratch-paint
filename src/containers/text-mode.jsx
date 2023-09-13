@@ -63,7 +63,8 @@ class TextMode extends React.Component {
         }
     }
     shouldComponentUpdate (nextProps) {
-        return nextProps.isTextModeActive !== this.props.isTextModeActive;
+        return nextProps.isTextModeActive !== this.props.isTextModeActive ||
+            nextProps.darkTheme !== this.props.darkTheme;
     }
     componentWillUnmount () {
         if (this.tool) {
@@ -129,10 +130,12 @@ class TextMode extends React.Component {
         return (
             this.props.isBitmap ?
                 <BitTextModeComponent
+                    darkTheme={this.props.darkTheme}
                     isSelected={this.props.isTextModeActive}
                     onMouseDown={this.props.handleChangeModeBitText}
                 /> :
                 <TextModeComponent
+                    darkTheme={this.props.darkTheme}
                     isSelected={this.props.isTextModeActive}
                     onMouseDown={this.props.handleChangeModeText}
                 />
@@ -149,6 +152,7 @@ TextMode.propTypes = {
         strokeColor: ColorStyleProptype,
         strokeWidth: PropTypes.number
     }).isRequired,
+    darkTheme: PropTypes.bool,
     font: PropTypes.string,
     handleChangeModeBitText: PropTypes.func.isRequired,
     handleChangeModeText: PropTypes.func.isRequired,
@@ -169,6 +173,7 @@ TextMode.propTypes = {
 
 const mapStateToProps = (state, ownProps) => ({
     colorState: state.scratchPaint.color,
+    darkTheme: state.scratchPaint.theme.darkTheme,
     font: state.scratchPaint.font,
     isTextModeActive: ownProps.isBitmap ?
         state.scratchPaint.mode === Modes.BIT_TEXT :

@@ -49,7 +49,8 @@ class LineMode extends React.Component {
         }
     }
     shouldComponentUpdate (nextProps) {
-        return nextProps.isLineModeActive !== this.props.isLineModeActive;
+        return nextProps.isLineModeActive !== this.props.isLineModeActive ||
+            nextProps.darkTheme !== this.props.darkTheme;
     }
     componentWillUnmount () {
         if (this.tool) {
@@ -270,6 +271,7 @@ class LineMode extends React.Component {
     render () {
         return (
             <LineModeComponent
+                darkTheme={this.props.darkTheme}
                 isSelected={this.props.isLineModeActive}
                 onMouseDown={this.props.handleMouseDown}
             />
@@ -285,6 +287,7 @@ LineMode.propTypes = {
         strokeColor: ColorStyleProptype,
         strokeWidth: PropTypes.number
     }).isRequired,
+    darkTheme: PropTypes.bool,
     handleMouseDown: PropTypes.func.isRequired,
     isLineModeActive: PropTypes.bool.isRequired,
     onChangeStrokeColor: PropTypes.func.isRequired,
@@ -294,6 +297,7 @@ LineMode.propTypes = {
 
 const mapStateToProps = state => ({
     colorState: state.scratchPaint.color,
+    darkTheme: state.scratchPaint.theme.darkTheme,
     isLineModeActive: state.scratchPaint.mode === Modes.LINE
 });
 const mapDispatchToProps = dispatch => ({

@@ -19,8 +19,8 @@ $arrow-border-width: 14px;
 .dropdown-icon {
     width: .5rem;
     height: .5rem;
+    vertical-align: middle;
     padding-bottom: 0.125rem;
-    color: $motion-accent;
 }
 
 [dir="ltr"] .dropdown-icon {

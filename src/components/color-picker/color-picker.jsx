@@ -10,9 +10,9 @@ import LabeledIconButton from '../labeled-icon-button/labeled-icon-button.jsx';
 import styles from './color-picker.css';
 import GradientTypes from '../../lib/gradient-types';
 import {MIXED} from '../../helper/style-path';
-import InlineIcon from '../inline-icon/inline-icon.jsx';
 
 import eyeDropperIcon from './icons/eye-dropper.svg';
+import eyeDropperIconWhite from './icons/eye-dropper-white.svg';
 import noFillIcon from '../color-button/no-fill.svg';
 import mixedFillIcon from '../color-button/mixed-fill.svg';
 import fillHorzGradientIcon from './icons/fill-horz-gradient-enabled.svg';
@@ -20,6 +20,7 @@ import fillRadialIcon from './icons/fill-radial-enabled.svg';
 import fillSolidIcon from './icons/fill-solid-enabled.svg';
 import fillVertGradientIcon from './icons/fill-vert-gradient-enabled.svg';
 import swapIcon from './icons/swap.svg';
+import swapIconDarkMode from './icons/swap-dark-mode.svg';
 import Modes from '../../lib/modes';
 
 const hsvToHex = (h, s, v) =>
@@ -153,7 +154,7 @@ class ColorPickerComponent extends React.Component {
                                     </div>
                                     <LabeledIconButton
                                         className={styles.swapButton}
-                                        imgSrc={swapIcon}
+                                        imgSrc={this.props.darkTheme ? swapIconDarkMode : swapIcon}
                                         title={this.props.intl.formatMessage(messages.swap)}
                                         onClick={this.props.onSwap}
                                     />
@@ -286,9 +287,10 @@ class ColorPickerComponent extends React.Component {
                             })}
                             onClick={this.props.onActivateEyeDropper}
                         >
-                            <InlineIcon
+                            <img
                                 className={styles.swatchIcon}
-                                src={eyeDropperIcon}
+                                draggable={false}
+                                src={this.props.darkTheme ? eyeDropperIconWhite : eyeDropperIcon}
                             />
                         </div>
                     </div>
@@ -303,6 +305,7 @@ ColorPickerComponent.propTypes = {
     color: PropTypes.string,
     color2: PropTypes.string,
     colorIndex: PropTypes.number.isRequired,
+    darkTheme: PropTypes.bool,
     gradientType: PropTypes.oneOf(Object.keys(GradientTypes)).isRequired,
     hue: PropTypes.number.isRequired,
     intl: intlShape.isRequired,

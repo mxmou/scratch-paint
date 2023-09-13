@@ -19,17 +19,24 @@ import Label from '../forms/label.jsx';
 import LabeledIconButton from '../labeled-icon-button/labeled-icon-button.jsx';
 import layout from '../../lib/layout-constants';
 import {hideLabel} from '../../lib/hide-label';
-import InlineIcon from '../inline-icon/inline-icon.jsx';
 import styles from './fixed-tools.css';
 
 import groupIcon from './icons/group.svg';
+import groupIconDarkMode from './icons/group-dark-mode.svg';
 import redoIcon from './icons/redo.svg';
+import redoIconDarkMode from './icons/redo-dark-mode.svg';
 import sendBackIcon from './icons/send-back.svg';
+import sendBackIconDarkMode from './icons/send-back-dark-mode.svg';
 import sendBackwardIcon from './icons/send-backward.svg';
+import sendBackwardIconDarkMode from './icons/send-backward-dark-mode.svg';
 import sendForwardIcon from './icons/send-forward.svg';
+import sendForwardIconDarkMode from './icons/send-forward-dark-mode.svg';
 import sendFrontIcon from './icons/send-front.svg';
+import sendFrontIconDarkMode from './icons/send-front-dark-mode.svg';
 import undoIcon from './icons/undo.svg';
+import undoIconDarkMode from './icons/undo-dark-mode.svg';
 import ungroupIcon from './icons/ungroup.svg';
+import ungroupIconDarkMode from './icons/ungroup-dark-mode.svg';
 
 const BufferedInput = BufferedInputHOC(Input);
 const messages = defineMessages({
@@ -128,13 +135,14 @@ const FixedToolsComponent = props => {
                         disabled={undoDisabled}
                         onClick={props.onUndo}
                     >
-                        <InlineIcon
+                        <img
                             alt={props.intl.formatMessage(messages.undo)}
                             className={classNames(
                                 styles.buttonGroupButtonIcon,
                                 styles.undoIcon
                             )}
-                            src={undoIcon}
+                            draggable={false}
+                            src={props.darkTheme ? undoIconDarkMode : undoIcon}
                         />
                     </Button>
                     <Button
@@ -149,10 +157,11 @@ const FixedToolsComponent = props => {
                         disabled={redoDisabled}
                         onClick={props.onRedo}
                     >
-                        <InlineIcon
+                        <img
                             alt={props.intl.formatMessage(messages.redo)}
                             className={styles.buttonGroupButtonIcon}
-                            src={redoIcon}
+                            draggable={false}
+                            src={props.darkTheme ? redoIconDarkMode : redoIcon}
                         />
                     </Button>
                 </ButtonGroup>
@@ -164,14 +173,14 @@ const FixedToolsComponent = props => {
                     <LabeledIconButton
                         disabled={!shouldShowGroup()}
                         hideLabel={hideLabel(props.intl.locale)}
-                        imgSrc={groupIcon}
+                        imgSrc={props.darkTheme ? groupIconDarkMode : groupIcon}
                         title={props.intl.formatMessage(messages.group)}
                         onClick={props.onGroup}
                     />
                     <LabeledIconButton
                         disabled={!shouldShowUngroup()}
                         hideLabel={hideLabel(props.intl.locale)}
-                        imgSrc={ungroupIcon}
+                        imgSrc={props.darkTheme ? ungroupIconDarkMode : ungroupIcon}
                         title={props.intl.formatMessage(messages.ungroup)}
                         onClick={props.onUngroup}
                     />
@@ -184,14 +193,14 @@ const FixedToolsComponent = props => {
                     <LabeledIconButton
                         disabled={!shouldShowBringForward()}
                         hideLabel={hideLabel(props.intl.locale)}
-                        imgSrc={sendForwardIcon}
+                        imgSrc={props.darkTheme ? sendForwardIconDarkMode : sendForwardIcon}
                         title={props.intl.formatMessage(messages.forward)}
                         onClick={props.onSendForward}
                     />
                     <LabeledIconButton
                         disabled={!shouldShowSendBackward()}
                         hideLabel={hideLabel(props.intl.locale)}
-                        imgSrc={sendBackwardIcon}
+                        imgSrc={props.darkTheme ? sendBackwardIconDarkMode : sendBackwardIcon}
                         title={props.intl.formatMessage(messages.backward)}
                         onClick={props.onSendBackward}
                     />
@@ -204,14 +213,14 @@ const FixedToolsComponent = props => {
                         <LabeledIconButton
                             disabled={!shouldShowBringForward()}
                             hideLabel={hideLabel(props.intl.locale)}
-                            imgSrc={sendFrontIcon}
+                            imgSrc={props.darkTheme ? sendFrontIconDarkMode : sendFrontIcon}
                             title={props.intl.formatMessage(messages.front)}
                             onClick={props.onSendToFront}
                         />
                         <LabeledIconButton
                             disabled={!shouldShowSendBackward()}
                             hideLabel={hideLabel(props.intl.locale)}
-                            imgSrc={sendBackIcon}
+                            imgSrc={props.darkTheme ? sendBackIconDarkMode : sendBackIcon}
                             title={props.intl.formatMessage(messages.back)}
                             onClick={props.onSendToBack}
                         />
@@ -233,6 +242,7 @@ const FixedToolsComponent = props => {
                     <InputGroup>
                         <Dropdown
                             className={styles.modUnselect}
+                            darkTheme={props.darkTheme}
                             enterExitTransitionDurationMs={20}
                             popoverContent={
                                 <InputGroup
@@ -249,7 +259,7 @@ const FixedToolsComponent = props => {
                                         <img
                                             className={styles.menuItemIcon}
                                             draggable={false}
-                                            src={sendFrontIcon}
+                                            src={props.darkTheme ? sendFrontIconDarkMode : sendFrontIcon}
                                         />
                                         <span>{props.intl.formatMessage(messages.front)}</span>
                                     </Button>
@@ -263,7 +273,7 @@ const FixedToolsComponent = props => {
                                         <img
                                             className={styles.menuItemIcon}
                                             draggable={false}
-                                            src={sendBackIcon}
+                                            src={props.darkTheme ? sendBackIconDarkMode : sendBackIcon}
                                         />
                                         <span>{props.intl.formatMessage(messages.back)}</span>
                                     </Button>
@@ -296,6 +306,7 @@ const FixedToolsComponent = props => {
 FixedToolsComponent.propTypes = {
     canRedo: PropTypes.func.isRequired,
     canUndo: PropTypes.func.isRequired,
+    darkTheme: PropTypes.bool,
     format: PropTypes.oneOf(Object.keys(Formats)),
     intl: intlShape,
     name: PropTypes.string,

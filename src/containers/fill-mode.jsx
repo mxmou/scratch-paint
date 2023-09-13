@@ -52,7 +52,8 @@ class FillMode extends React.Component {
         }
     }
     shouldComponentUpdate (nextProps) {
-        return nextProps.isFillModeActive !== this.props.isFillModeActive;
+        return nextProps.isFillModeActive !== this.props.isFillModeActive ||
+            nextProps.darkTheme !== this.props.darkTheme;
     }
     componentWillUnmount () {
         if (this.tool) {
@@ -101,6 +102,7 @@ class FillMode extends React.Component {
     render () {
         return (
             <FillModeComponent
+                darkTheme={this.props.darkTheme}
                 isSelected={this.props.isFillModeActive}
                 onMouseDown={this.props.handleMouseDown}
             />
@@ -112,6 +114,7 @@ FillMode.propTypes = {
     changeGradientType: PropTypes.func.isRequired,
     clearHoveredItem: PropTypes.func.isRequired,
     clearSelectedItems: PropTypes.func.isRequired,
+    darkTheme: PropTypes.bool,
     fillColor: PropTypes.string,
     fillColor2: PropTypes.string,
     fillStyleGradientType: PropTypes.oneOf(Object.keys(GradientTypes)).isRequired,
@@ -125,6 +128,7 @@ FillMode.propTypes = {
 };
 
 const mapStateToProps = state => ({
+    darkTheme: state.scratchPaint.theme.darkTheme,
     fillModeGradientType: state.scratchPaint.fillMode.gradientType, // Last user-selected gradient type
     fillColor: state.scratchPaint.color.fillColor.primary,
     fillColor2: state.scratchPaint.color.fillColor.secondary,

@@ -7,7 +7,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Button from '../button/button.jsx';
-import InlineIcon from '../inline-icon/inline-icon.jsx';
 
 import styles from './labeled-icon-button.css';
 
@@ -25,9 +24,10 @@ const LabeledIconButton = ({
         onClick={onClick}
         {...props}
     >
-        <InlineIcon
+        <img
             alt={imgAlt || title}
             className={styles.editFieldIcon}
+            draggable={false}
             src={imgSrc}
             title={title}
         />

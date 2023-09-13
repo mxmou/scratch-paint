@@ -48,7 +48,8 @@ class BitFillMode extends React.Component {
         }
     }
     shouldComponentUpdate (nextProps) {
-        return nextProps.isFillModeActive !== this.props.isFillModeActive;
+        return nextProps.isFillModeActive !== this.props.isFillModeActive ||
+            nextProps.darkTheme !== this.props.darkTheme;
     }
     componentWillUnmount () {
         if (this.tool) {
@@ -92,6 +93,7 @@ class BitFillMode extends React.Component {
     render () {
         return (
             <FillModeComponent
+                darkTheme={this.props.darkTheme}
                 isSelected={this.props.isFillModeActive}
                 onMouseDown={this.props.handleMouseDown}
             />
@@ -106,6 +108,7 @@ BitFillMode.propTypes = {
     color2: PropTypes.string,
     styleGradientType: PropTypes.oneOf(Object.keys(GradientTypes)).isRequired,
     fillModeGradientType: PropTypes.oneOf(Object.keys(GradientTypes)),
+    darkTheme: PropTypes.bool,
     handleMouseDown: PropTypes.func.isRequired,
     isFillModeActive: PropTypes.bool.isRequired,
     onChangeFillColor: PropTypes.func.isRequired,
@@ -117,7 +120,8 @@ const mapStateToProps = state => ({
     color: state.scratchPaint.color.fillColor.primary,
     color2: state.scratchPaint.color.fillColor.secondary,
     styleGradientType: state.scratchPaint.color.fillColor.gradientType,
-    isFillModeActive: state.scratchPaint.mode === Modes.BIT_FILL
+    isFillModeActive: state.scratchPaint.mode === Modes.BIT_FILL,
+    darkTheme: state.scratchPaint.theme.darkTheme
 });
 const mapDispatchToProps = dispatch => ({
     clearSelectedItems: () => {

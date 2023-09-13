@@ -33,15 +33,18 @@ import SelectMode from '../../containers/select-mode.jsx';
 import StrokeColorIndicatorComponent from '../../containers/stroke-color-indicator.jsx';
 import StrokeWidthIndicatorComponent from '../../containers/stroke-width-indicator.jsx';
 import TextMode from '../../containers/text-mode.jsx';
-import InlineIcon from '../inline-icon/inline-icon.jsx';
 
 import Formats, {isBitmap, isVector} from '../../lib/format';
 import styles from './paint-editor.css';
 
 import bitmapIcon from './icons/bitmap.svg';
+import bitmapIconBlack from './icons/bitmap-black.svg';
 import zoomInIcon from './icons/zoom-in.svg';
+import zoomInIconWhite from './icons/zoom-in-white.svg';
 import zoomOutIcon from './icons/zoom-out.svg';
+import zoomOutIconWhite from './icons/zoom-out-white.svg';
 import zoomResetIcon from './icons/zoom-reset.svg';
+import zoomResetIconWhite from './icons/zoom-reset-white.svg';
 
 const messages = defineMessages({
     bitmap: {
@@ -205,7 +208,6 @@ const PaintEditorComponent = props => (
                 >
                     <PaperCanvas
                         canvasRef={props.setCanvas}
-                        darkTheme={props.darkTheme}
                         image={props.image}
                         imageFormat={props.imageFormat}
                         imageId={props.imageId}
@@ -237,9 +239,10 @@ const PaintEditorComponent = props => (
                             className={styles.bitmapButton}
                             onClick={props.onSwitchToBitmap}
                         >
-                            <InlineIcon
+                            <img
                                 className={styles.bitmapButtonIcon}
-                                src={bitmapIcon}
+                                draggable={false}
+                                src={props.darkTheme ? bitmapIconBlack : bitmapIcon}
                             />
                             <span className={styles.buttonText}>
                                 {props.intl.formatMessage(messages.bitmap)}
@@ -250,9 +253,10 @@ const PaintEditorComponent = props => (
                                 className={styles.bitmapButton}
                                 onClick={props.onSwitchToVector}
                             >
-                                <InlineIcon
+                                <img
                                     className={styles.bitmapButtonIcon}
-                                    src={bitmapIcon}
+                                    draggable={false}
+                                    src={props.darkTheme ? bitmapIconBlack : bitmapIcon}
                                 />
                                 <span className={styles.buttonText}>
                                     {props.intl.formatMessage(messages.vector)}
@@ -266,30 +270,33 @@ const PaintEditorComponent = props => (
                                 className={styles.buttonGroupButton}
                                 onClick={props.onZoomOut}
                             >
-                                <InlineIcon
+                                <img
                                     alt="Zoom Out"
                                     className={styles.buttonGroupButtonIcon}
-                                    src={zoomOutIcon}
+                                    draggable={false}
+                                    src={props.darkTheme ? zoomOutIconWhite : zoomOutIcon}
                                 />
                             </Button>
                             <Button
                                 className={styles.buttonGroupButton}
                                 onClick={props.onZoomReset}
                             >
-                                <InlineIcon
+                                <img
                                     alt="Zoom Reset"
                                     className={styles.buttonGroupButtonIcon}
-                                    src={zoomResetIcon}
+                                    draggable={false}
+                                    src={props.darkTheme ? zoomResetIconWhite : zoomResetIcon}
                                 />
                             </Button>
                             <Button
                                 className={styles.buttonGroupButton}
                                 onClick={props.onZoomIn}
                             >
-                                <InlineIcon
+                                <img
                                     alt="Zoom In"
                                     className={styles.buttonGroupButtonIcon}
-                                    src={zoomInIcon}
+                                    draggable={false}
+                                    src={props.darkTheme ? zoomInIconWhite : zoomInIcon}
                                 />
                             </Button>
                         </ButtonGroup>

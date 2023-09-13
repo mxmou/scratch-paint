@@ -41,7 +41,8 @@ class BitLineMode extends React.Component {
         }
     }
     shouldComponentUpdate (nextProps) {
-        return nextProps.isBitLineModeActive !== this.props.isBitLineModeActive;
+        return nextProps.isBitLineModeActive !== this.props.isBitLineModeActive ||
+            nextProps.darkTheme !== this.props.darkTheme;
     }
     componentWillUnmount () {
         if (this.tool) {
@@ -73,6 +74,7 @@ class BitLineMode extends React.Component {
     render () {
         return (
             <BitLineModeComponent
+                darkTheme={this.props.darkTheme}
                 isSelected={this.props.isBitLineModeActive}
                 onMouseDown={this.props.handleMouseDown}
             />
@@ -85,6 +87,7 @@ BitLineMode.propTypes = {
     clearGradient: PropTypes.func.isRequired,
     clearSelectedItems: PropTypes.func.isRequired,
     color: PropTypes.string,
+    darkTheme: PropTypes.bool,
     handleMouseDown: PropTypes.func.isRequired,
     isBitLineModeActive: PropTypes.bool.isRequired,
     onChangeFillColor: PropTypes.func.isRequired,
@@ -94,6 +97,7 @@ BitLineMode.propTypes = {
 const mapStateToProps = state => ({
     bitBrushSize: state.scratchPaint.bitBrushSize,
     color: state.scratchPaint.color.fillColor.primary,
+    darkTheme: state.scratchPaint.theme.darkTheme,
     isBitLineModeActive: state.scratchPaint.mode === Modes.BIT_LINE
 });
 const mapDispatchToProps = dispatch => ({

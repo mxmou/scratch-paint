@@ -37,7 +37,8 @@ class EraserMode extends React.Component {
         }
     }
     shouldComponentUpdate (nextProps) {
-        return nextProps.isEraserModeActive !== this.props.isEraserModeActive;
+        return nextProps.isEraserModeActive !== this.props.isEraserModeActive ||
+            nextProps.darkTheme !== this.props.darkTheme;
     }
     componentWillUnmount () {
         if (this.blob.tool) {
@@ -53,6 +54,7 @@ class EraserMode extends React.Component {
     render () {
         return (
             <EraserModeComponent
+                darkTheme={this.props.darkTheme}
                 isSelected={this.props.isEraserModeActive}
                 onMouseDown={this.props.handleMouseDown}
             />
@@ -62,6 +64,7 @@ class EraserMode extends React.Component {
 
 EraserMode.propTypes = {
     clearSelectedItems: PropTypes.func.isRequired,
+    darkTheme: PropTypes.bool,
     eraserModeState: PropTypes.shape({
         brushSize: PropTypes.number.isRequired
     }),
@@ -71,6 +74,7 @@ EraserMode.propTypes = {
 };
 
 const mapStateToProps = state => ({
+    darkTheme: state.scratchPaint.theme.darkTheme,
     eraserModeState: state.scratchPaint.eraserMode,
     isEraserModeActive: state.scratchPaint.mode === Modes.ERASER
 });

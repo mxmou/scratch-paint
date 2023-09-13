@@ -4,11 +4,10 @@ import Popover from 'react-popover';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import InlineIcon from '../inline-icon/inline-icon.jsx';
-
 import styles from './dropdown.css';
 
 import dropdownIcon from './dropdown-caret.svg';
+import dropdownIconDarkMode from './dropdown-caret-dark-mode.svg';
 
 class Dropdown extends React.Component {
     constructor (props) {
@@ -57,11 +56,12 @@ class Dropdown extends React.Component {
                     onClick={this.handleToggleOpenState}
                 >
                     {this.props.children}
-                    <InlineIcon
+                    <img
                         className={classNames(styles.dropdownIcon, {
                             [styles.modCaretUp]: this.state.isOpen
                         })}
-                        src={dropdownIcon}
+                        draggable={false}
+                        src={this.props.darkTheme ? dropdownIconDarkMode : dropdownIcon}
                     />
                 </div>
             </Popover>
@@ -72,6 +72,7 @@ class Dropdown extends React.Component {
 Dropdown.propTypes = {
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
+    darkTheme: PropTypes.bool,
     onOpen: PropTypes.func,
     onOuterAction: PropTypes.func,
     popoverContent: PropTypes.node.isRequired

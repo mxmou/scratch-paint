@@ -53,7 +53,8 @@ class BitRectMode extends React.Component {
         }
     }
     shouldComponentUpdate (nextProps) {
-        return nextProps.isRectModeActive !== this.props.isRectModeActive;
+        return nextProps.isRectModeActive !== this.props.isRectModeActive ||
+            nextProps.darkTheme !== this.props.darkTheme;
     }
     componentWillUnmount () {
         if (this.tool) {
@@ -86,6 +87,7 @@ class BitRectMode extends React.Component {
     render () {
         return (
             <RectModeComponent
+                darkTheme={this.props.darkTheme}
                 isSelected={this.props.isRectModeActive}
                 onMouseDown={this.props.handleMouseDown}
             />
@@ -96,6 +98,7 @@ class BitRectMode extends React.Component {
 BitRectMode.propTypes = {
     clearSelectedItems: PropTypes.func.isRequired,
     color: ColorStyleProptype,
+    darkTheme: PropTypes.bool,
     filled: PropTypes.bool,
     handleMouseDown: PropTypes.func.isRequired,
     isRectModeActive: PropTypes.bool.isRequired,
@@ -110,6 +113,7 @@ BitRectMode.propTypes = {
 
 const mapStateToProps = state => ({
     color: state.scratchPaint.color.fillColor,
+    darkTheme: state.scratchPaint.theme.darkTheme,
     filled: state.scratchPaint.fillBitmapShapes,
     isRectModeActive: state.scratchPaint.mode === Modes.BIT_RECT,
     selectedItems: state.scratchPaint.selectedItems,

@@ -19,8 +19,7 @@ $border-radius: 0.25rem;
     width: 1.5rem;
     height: 1.5rem;
     flex-grow: 1;
-    --background: $ui-white-bg;
-    --accent: $motion-accent;
+    vertical-align: middle;
 }
 
 .edit-field-title {

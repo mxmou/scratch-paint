@@ -3,17 +3,21 @@ import PropTypes from 'prop-types';
 import ToolSelectComponent from '../tool-select-base/tool-select-base.jsx';
 import messages from '../../lib/messages.js';
 import selectIcon from './marquee.svg';
+import selectIconWhite from './marquee-white.svg';
+import selectIconBlack from './marquee-black.svg';
 
 const BitSelectComponent = props => (
     <ToolSelectComponent
         imgDescriptor={messages.select}
-        imgSrc={selectIcon}
+        imgSrc={props.darkTheme ? selectIconWhite : selectIcon}
+        selectedImgSrc={props.darkTheme ? selectIconBlack : selectIconWhite}
         isSelected={props.isSelected}
         onMouseDown={props.onMouseDown}
     />
 );
 
 BitSelectComponent.propTypes = {
+    darkTheme: PropTypes.bool,
     isSelected: PropTypes.bool.isRequired,
     onMouseDown: PropTypes.func.isRequired
 };

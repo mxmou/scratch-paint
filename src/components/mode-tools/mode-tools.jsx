@@ -16,29 +16,49 @@ import {defineMessages, injectIntl, intlShape} from 'react-intl';
 import Input from '../forms/input.jsx';
 import InputGroup from '../input-group/input-group.jsx';
 import LabeledIconButton from '../labeled-icon-button/labeled-icon-button.jsx';
-import InlineIcon from '../inline-icon/inline-icon.jsx';
 import Modes from '../../lib/modes';
 import Formats, {isBitmap, isVector} from '../../lib/format';
 import {hideLabel} from '../../lib/hide-label';
 import styles from './mode-tools.css';
 
 import copyIcon from './icons/copy.svg';
+import copyIconDarkMode from './icons/copy-dark-mode.svg';
 import pasteIcon from './icons/paste.svg';
+import pasteIconDarkMode from './icons/paste-dark-mode.svg';
 import deleteIcon from './icons/delete.svg';
+import deleteIconDarkMode from './icons/delete-dark-mode.svg';
 
-import bitBrushIcon from '../bit-brush-mode/brush.svg';
-import bitEraserIcon from '../bit-eraser-mode/eraser.svg';
-import bitLineIcon from '../bit-line-mode/line.svg';
-import brushIcon from '../brush-mode/brush.svg';
+import bitBrushIconGray from '../bit-brush-mode/brush.svg';
+import bitBrushIconWhite from '../bit-brush-mode/brush-white.svg';
+import bitEraserIconGray from '../bit-eraser-mode/eraser.svg';
+import bitEraserIconWhite from '../bit-eraser-mode/eraser-white.svg';
+import bitLineIconGray from '../bit-line-mode/line.svg';
+import bitLineIconWhite from '../bit-line-mode/line-white.svg';
+import brushIconGray from '../brush-mode/brush.svg';
+import brushIconWhite from '../brush-mode/brush-white.svg';
 import curvedPointIcon from './icons/curved-point.svg';
-import eraserIcon from '../eraser-mode/eraser.svg';
+import curvedPointIconDarkMode from './icons/curved-point-dark-mode.svg';
+import eraserIconGray from '../eraser-mode/eraser.svg';
+import eraserIconWhite from '../eraser-mode/eraser-white.svg';
 import flipHorizontalIcon from './icons/flip-horizontal.svg';
+import flipHorizontalIconDarkMode from './icons/flip-horizontal-dark-mode.svg';
 import flipVerticalIcon from './icons/flip-vertical.svg';
+import flipVerticalIconDarkMode from './icons/flip-vertical-dark-mode.svg';
 import straightPointIcon from './icons/straight-point.svg';
-import bitOvalIcon from '../bit-oval-mode/oval.svg';
-import bitRectIcon from '../bit-rect-mode/rectangle.svg';
-import bitOvalOutlinedIcon from '../bit-oval-mode/oval-outlined.svg';
-import bitRectOutlinedIcon from '../bit-rect-mode/rectangle-outlined.svg';
+import straightPointIconDarkMode from './icons/straight-point-dark-mode.svg';
+
+import bitOvalIconGray from '../bit-oval-mode/oval.svg';
+import bitOvalIconWhite from '../bit-oval-mode/oval-white.svg';
+import bitOvalIconBlack from '../bit-oval-mode/oval-black.svg';
+import bitRectIconGray from '../bit-rect-mode/rectangle.svg';
+import bitRectIconWhite from '../bit-rect-mode/rectangle-white.svg';
+import bitRectIconBlack from '../bit-rect-mode/rectangle-black.svg';
+import bitOvalOutlinedIconGray from '../bit-oval-mode/oval-outlined.svg';
+import bitOvalOutlinedIconWhite from '../bit-oval-mode/oval-outlined-white.svg';
+import bitOvalOutlinedIconBlack from '../bit-oval-mode/oval-outlined-black.svg';
+import bitRectOutlinedIconGray from '../bit-rect-mode/rectangle-outlined.svg';
+import bitRectOutlinedIconWhite from '../bit-rect-mode/rectangle-outlined-white.svg';
+import bitRectOutlinedIconBlack from '../bit-rect-mode/rectangle-outlined-black.svg';
 
 import {MAX_STROKE_WIDTH} from '../../reducers/stroke-width';
 
@@ -107,6 +127,30 @@ const ModeToolsComponent = props => {
         }
     });
 
+    const bitBrushIcon = props.darkTheme ? bitBrushIconWhite : bitBrushIconGray;
+    const bitEraserIcon = props.darkTheme ? bitEraserIconWhite : bitEraserIconGray;
+    const bitLineIcon = props.darkTheme ? bitLineIconWhite : bitLineIconGray;
+    const brushIcon = props.darkTheme ? brushIconWhite : brushIconGray;
+    const eraserIcon = props.darkTheme ? eraserIconWhite : eraserIconGray;
+
+    let bitOvalIcon = props.darkTheme ? bitOvalIconWhite : bitOvalIconGray;
+    let bitRectIcon = props.darkTheme ? bitRectIconWhite : bitRectIconGray;
+    let bitOvalOutlinedIcon = props.darkTheme ? bitOvalOutlinedIconWhite : bitOvalOutlinedIconGray;
+    let bitRectOutlinedIcon = props.darkTheme ? bitRectOutlinedIconWhite : bitRectOutlinedIconGray;
+
+    const bitOvalIconSelected = props.darkTheme ? bitOvalIconBlack : bitOvalIconWhite;
+    const bitRectIconSelected = props.darkTheme ? bitRectIconBlack : bitRectIconWhite;
+    const bitOvalOutlinedIconSelected = props.darkTheme ? bitOvalOutlinedIconBlack : bitOvalOutlinedIconWhite;
+    const bitRectOutlinedIconSelected = props.darkTheme ? bitRectOutlinedIconBlack : bitRectOutlinedIconWhite;
+
+    if (props.fillBitmapShapes) {
+        bitOvalIcon = bitOvalIconSelected;
+        bitRectIcon = bitRectIconSelected;
+    } else {
+        bitOvalOutlinedIcon = bitOvalOutlinedIconSelected;
+        bitRectOutlinedIcon = bitRectOutlinedIconSelected;
+    }
+
     switch (props.mode) {
     case Modes.BRUSH:
         /* falls through */
@@ -122,9 +166,10 @@ const ModeToolsComponent = props => {
         return (
             <div className={classNames(props.className, styles.modeTools)}>
                 <div>
-                    <InlineIcon
+                    <img
                         alt={props.intl.formatMessage(currentMessage)}
                         className={styles.modeToolsIcon}
+                        draggable={false}
                         src={currentIcon}
                     />
                 </div>
@@ -150,9 +195,10 @@ const ModeToolsComponent = props => {
         return (
             <div className={classNames(props.className, styles.modeTools)}>
                 <div>
-                    <InlineIcon
+                    <img
                         alt={props.intl.formatMessage(messages.eraserSize)}
                         className={styles.modeToolsIcon}
+                        draggable={false}
                         src={currentIcon}
                     />
                 </div>
@@ -175,14 +221,14 @@ const ModeToolsComponent = props => {
                     <LabeledIconButton
                         disabled={!props.hasSelectedUncurvedPoints}
                         hideLabel={hideLabel(props.intl.locale)}
-                        imgSrc={curvedPointIcon}
+                        imgSrc={props.darkTheme ? curvedPointIconDarkMode : curvedPointIcon}
                         title={props.intl.formatMessage(messages.curved)}
                         onClick={props.onCurvePoints}
                     />
                     <LabeledIconButton
                         disabled={!props.hasSelectedUnpointedPoints}
                         hideLabel={hideLabel(props.intl.locale)}
-                        imgSrc={straightPointIcon}
+                        imgSrc={props.darkTheme ? straightPointIconDarkMode : straightPointIcon}
                         title={props.intl.formatMessage(messages.pointed)}
                         onClick={props.onPointPoints}
                     />
@@ -190,7 +236,7 @@ const ModeToolsComponent = props => {
                 <InputGroup className={classNames(styles.modLabeledIconHeight)}>
                     <LabeledIconButton
                         hideLabel={hideLabel(props.intl.locale)}
-                        imgSrc={deleteIcon}
+                        imgSrc={props.darkTheme ? deleteIconDarkMode : deleteIcon}
                         title={props.intl.formatMessage(messages.delete)}
                         onClick={props.onDelete}
                     />
@@ -205,14 +251,14 @@ const ModeToolsComponent = props => {
                 <InputGroup className={classNames(styles.modDashedBorder, styles.modLabeledIconHeight)}>
                     <LabeledIconButton
                         hideLabel={hideLabel(props.intl.locale)}
-                        imgSrc={copyIcon}
+                        imgSrc={props.darkTheme ? copyIconDarkMode : copyIcon}
                         title={props.intl.formatMessage(messages.copy)}
                         onClick={props.onCopyToClipboard}
                     />
                     <LabeledIconButton
                         disabled={!(props.clipboardItems.length > 0)}
                         hideLabel={hideLabel(props.intl.locale)}
-                        imgSrc={pasteIcon}
+                        imgSrc={props.darkTheme ? pasteIconDarkMode : pasteIcon}
                         title={props.intl.formatMessage(messages.paste)}
                         onClick={props.onPasteFromClipboard}
                     />
@@ -220,7 +266,7 @@ const ModeToolsComponent = props => {
                 <InputGroup className={classNames(styles.modDashedBorder, styles.modLabeledIconHeight)}>
                     <LabeledIconButton
                         hideLabel={hideLabel(props.intl.locale)}
-                        imgSrc={deleteIcon}
+                        imgSrc={props.darkTheme ? deleteIconDarkMode : deleteIcon}
                         title={props.intl.formatMessage(messages.delete)}
                         onClick={props.onDelete}
                     />
@@ -228,13 +274,13 @@ const ModeToolsComponent = props => {
                 <InputGroup className={classNames(styles.modLabeledIconHeight)}>
                     <LabeledIconButton
                         hideLabel={props.intl.locale !== 'en'}
-                        imgSrc={flipHorizontalIcon}
+                        imgSrc={props.darkTheme ? flipHorizontalIconDarkMode : flipHorizontalIcon}
                         title={props.intl.formatMessage(messages.flipHorizontal)}
                         onClick={props.onFlipHorizontal}
                     />
                     <LabeledIconButton
                         hideLabel={props.intl.locale !== 'en'}
-                        imgSrc={flipVerticalIcon}
+                        imgSrc={props.darkTheme ? flipVerticalIconDarkMode : flipVerticalIcon}
                         title={props.intl.formatMessage(messages.flipVertical)}
                         onClick={props.onFlipVertical}
                     />
@@ -278,7 +324,7 @@ const ModeToolsComponent = props => {
                     />
                 </InputGroup>
                 {props.fillBitmapShapes ? null : (
-                    <InputGroup>
+                    <InputGroup className={styles.bitmapOutlineWidthInput}>
                         <Label text={props.intl.formatMessage(messages.thickness)}>
                             <LiveInput
                                 range
@@ -309,6 +355,7 @@ ModeToolsComponent.propTypes = {
     brushValue: PropTypes.number,
     className: PropTypes.string,
     clipboardItems: PropTypes.arrayOf(PropTypes.array),
+    darkTheme: PropTypes.bool,
     eraserValue: PropTypes.number,
     fillBitmapShapes: PropTypes.bool,
     format: PropTypes.oneOf(Object.keys(Formats)),
@@ -340,7 +387,8 @@ const mapStateToProps = state => ({
     bitEraserSize: state.scratchPaint.bitEraserSize,
     brushValue: state.scratchPaint.brushMode.brushSize,
     clipboardItems: state.scratchPaint.clipboard.items,
-    eraserValue: state.scratchPaint.eraserMode.brushSize
+    eraserValue: state.scratchPaint.eraserMode.brushSize,
+    darkTheme: state.scratchPaint.theme.darkTheme
 });
 const mapDispatchToProps = dispatch => ({
     onBrushSliderChange: brushSize => {

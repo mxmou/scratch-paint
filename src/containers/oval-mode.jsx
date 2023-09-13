@@ -47,7 +47,8 @@ class OvalMode extends React.Component {
         }
     }
     shouldComponentUpdate (nextProps) {
-        return nextProps.isOvalModeActive !== this.props.isOvalModeActive;
+        return nextProps.isOvalModeActive !== this.props.isOvalModeActive ||
+            nextProps.darkTheme !== this.props.darkTheme;
     }
     componentWillUnmount () {
         if (this.tool) {
@@ -120,6 +121,7 @@ class OvalMode extends React.Component {
     render () {
         return (
             <OvalModeComponent
+                darkTheme={this.props.darkTheme}
                 isSelected={this.props.isOvalModeActive}
                 onMouseDown={this.props.handleMouseDown}
             />
@@ -136,6 +138,7 @@ OvalMode.propTypes = {
         strokeColor: ColorStyleProptype,
         strokeWidth: PropTypes.number
     }).isRequired,
+    darkTheme: PropTypes.bool,
     handleMouseDown: PropTypes.func.isRequired,
     isOvalModeActive: PropTypes.bool.isRequired,
     onChangeFillColor: PropTypes.func.isRequired,
@@ -148,6 +151,7 @@ OvalMode.propTypes = {
 
 const mapStateToProps = state => ({
     colorState: state.scratchPaint.color,
+    darkTheme: state.scratchPaint.theme.darkTheme,
     isOvalModeActive: state.scratchPaint.mode === Modes.OVAL,
     selectedItems: state.scratchPaint.selectedItems
 });

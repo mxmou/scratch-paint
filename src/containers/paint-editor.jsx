@@ -17,6 +17,7 @@ import {deactivateEyeDropper} from '../reducers/eye-dropper';
 import {setTextEditTarget} from '../reducers/text-edit-target';
 import {updateViewBounds} from '../reducers/view-bounds';
 import {setLayout} from '../reducers/layout';
+import {setDarkTheme} from '../reducers/theme';
 
 import {getSelectedLeafItems} from '../helper/selection';
 import {convertToBitmap, convertToVector} from '../helper/bitmap';
@@ -92,6 +93,7 @@ class PaintEditor extends React.Component {
             colorInfo: null
         };
         this.props.setLayout(this.props.rtl ? 'rtl' : 'ltr');
+        this.props.setDarkTheme(this.props.darkTheme);
     }
     componentDidMount () {
         document.addEventListener('keydown', this.props.onKeyPress);
@@ -111,6 +113,9 @@ class PaintEditor extends React.Component {
         }
         if (newProps.rtl !== this.props.rtl) {
             this.props.setLayout(newProps.rtl ? 'rtl' : 'ltr');
+        }
+        if (newProps.darkTheme !== this.props.darkTheme) {
+            this.props.setDarkTheme(newProps.darkTheme);
         }
     }
     componentDidUpdate (prevProps) {
@@ -370,6 +375,7 @@ PaintEditor.propTypes = {
     rotationCenterX: PropTypes.number,
     rotationCenterY: PropTypes.number,
     rtl: PropTypes.bool,
+    setDarkTheme: PropTypes.func.isRequired,
     setLayout: PropTypes.func.isRequired,
     setSelectedItems: PropTypes.func.isRequired,
     shouldShowRedo: PropTypes.func.isRequired,
@@ -402,6 +408,9 @@ const mapDispatchToProps = dispatch => ({
     },
     removeTextEditTarget: () => {
         dispatch(setTextEditTarget());
+    },
+    setDarkTheme: darkTheme => {
+        dispatch(setDarkTheme(darkTheme));
     },
     setLayout: layout => {
         dispatch(setLayout(layout));

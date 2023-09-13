@@ -144,6 +144,7 @@ class FontDropdown extends React.Component {
         return (
             <FontDropdownComponent
                 componentRef={this.setDropdown}
+                darkTheme={this.props.darkTheme}
                 font={this.props.font}
                 getFontName={this.getFontName}
                 getFontStyle={this.getFontStyle}
@@ -166,11 +167,13 @@ class FontDropdown extends React.Component {
 
 FontDropdown.propTypes = {
     changeFont: PropTypes.func.isRequired,
+    darkTheme: PropTypes.bool,
     font: PropTypes.string,
     onUpdateImage: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
+    darkTheme: state.scratchPaint.theme.darkTheme,
     font: state.scratchPaint.font
 });
 const mapDispatchToProps = dispatch => ({

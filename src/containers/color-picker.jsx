@@ -127,6 +127,7 @@ class ColorPicker extends React.Component {
                 color={this.props.color}
                 color2={this.props.color2}
                 colorIndex={this.props.colorIndex}
+                darkTheme={this.props.darkTheme}
                 gradientType={this.props.gradientType}
                 hue={this.state.hue}
                 isEyeDropping={this.props.isEyeDropping}
@@ -155,6 +156,7 @@ ColorPicker.propTypes = {
     color: PropTypes.string,
     color2: PropTypes.string,
     colorIndex: PropTypes.number.isRequired,
+    darkTheme: PropTypes.bool,
     gradientType: PropTypes.oneOf(Object.keys(GradientTypes)).isRequired,
     isEyeDropping: PropTypes.bool.isRequired,
     mode: PropTypes.oneOf(Object.keys(Modes)),
@@ -170,6 +172,7 @@ ColorPicker.propTypes = {
 
 const mapStateToProps = state => ({
     colorIndex: state.scratchPaint.fillMode.colorIndex,
+    darkTheme: state.scratchPaint.theme.darkTheme,
     isEyeDropping: state.scratchPaint.color.eyeDropper.active,
     mode: state.scratchPaint.mode,
     rtl: state.scratchPaint.layout.rtl

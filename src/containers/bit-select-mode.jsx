@@ -39,7 +39,8 @@ class BitSelectMode extends React.Component {
         }
     }
     shouldComponentUpdate (nextProps) {
-        return nextProps.isSelectModeActive !== this.props.isSelectModeActive;
+        return nextProps.isSelectModeActive !== this.props.isSelectModeActive ||
+            nextProps.darkTheme !== this.props.darkTheme;
     }
     componentWillUnmount () {
         if (this.tool) {
@@ -64,6 +65,7 @@ class BitSelectMode extends React.Component {
     render () {
         return (
             <SelectModeComponent
+                darkTheme={this.props.darkTheme}
                 isSelected={this.props.isSelectModeActive}
                 onMouseDown={this.props.handleMouseDown}
             />
@@ -74,6 +76,7 @@ class BitSelectMode extends React.Component {
 BitSelectMode.propTypes = {
     clearGradient: PropTypes.func.isRequired,
     clearSelectedItems: PropTypes.func.isRequired,
+    darkTheme: PropTypes.bool,
     handleMouseDown: PropTypes.func.isRequired,
     isSelectModeActive: PropTypes.bool.isRequired,
     onUpdateImage: PropTypes.func.isRequired,
@@ -83,6 +86,7 @@ BitSelectMode.propTypes = {
 };
 
 const mapStateToProps = state => ({
+    darkTheme: state.scratchPaint.theme.darkTheme,
     isSelectModeActive: state.scratchPaint.mode === Modes.BIT_SELECT,
     selectedItems: state.scratchPaint.selectedItems
 });

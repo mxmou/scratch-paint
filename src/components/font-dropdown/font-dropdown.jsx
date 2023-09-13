@@ -11,6 +11,7 @@ import styles from './font-dropdown.css';
 const ModeToolsComponent = props => (
     <Dropdown
         className={classNames(styles.modUnselect, styles.fontDropdown)}
+        darkTheme={props.darkTheme}
         enterExitTransitionDurationMs={60}
         popoverContent={
             <InputGroup className={styles.modContextMenu}>
@@ -110,6 +111,7 @@ const ModeToolsComponent = props => (
 
 ModeToolsComponent.propTypes = {
     componentRef: PropTypes.func.isRequired,
+    darkTheme: PropTypes.bool,
     font: PropTypes.string,
     getFontName: PropTypes.func.isRequired,
     getFontStyle: PropTypes.func.isRequired,

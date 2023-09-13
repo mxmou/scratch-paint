@@ -37,7 +37,8 @@ class ReshapeMode extends React.Component {
         }
     }
     shouldComponentUpdate (nextProps) {
-        return nextProps.isReshapeModeActive !== this.props.isReshapeModeActive;
+        return nextProps.isReshapeModeActive !== this.props.isReshapeModeActive ||
+            nextProps.darkTheme !== this.props.darkTheme;
     }
     componentWillUnmount () {
         if (this.tool) {
@@ -65,6 +66,7 @@ class ReshapeMode extends React.Component {
     render () {
         return (
             <ReshapeModeComponent
+                darkTheme={this.props.darkTheme}
                 isSelected={this.props.isReshapeModeActive}
                 onMouseDown={this.props.handleMouseDown}
             />
@@ -75,6 +77,7 @@ class ReshapeMode extends React.Component {
 ReshapeMode.propTypes = {
     clearHoveredItem: PropTypes.func.isRequired,
     clearSelectedItems: PropTypes.func.isRequired,
+    darkTheme: PropTypes.bool,
     handleMouseDown: PropTypes.func.isRequired,
     hoveredItemId: PropTypes.number,
     isReshapeModeActive: PropTypes.bool.isRequired,
@@ -85,6 +88,7 @@ ReshapeMode.propTypes = {
 };
 
 const mapStateToProps = state => ({
+    darkTheme: state.scratchPaint.theme.darkTheme,
     isReshapeModeActive: state.scratchPaint.mode === Modes.RESHAPE,
     hoveredItemId: state.scratchPaint.hoveredItemId
 });

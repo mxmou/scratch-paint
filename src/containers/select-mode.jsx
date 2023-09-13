@@ -42,7 +42,8 @@ class SelectMode extends React.Component {
         }
     }
     shouldComponentUpdate (nextProps) {
-        return nextProps.isSelectModeActive !== this.props.isSelectModeActive;
+        return nextProps.isSelectModeActive !== this.props.isSelectModeActive ||
+            nextProps.darkTheme !== this.props.darkTheme;
     }
     componentWillUnmount () {
         if (this.tool) {
@@ -69,6 +70,7 @@ class SelectMode extends React.Component {
     render () {
         return (
             <SelectModeComponent
+                darkTheme={this.props.darkTheme}
                 isSelected={this.props.isSelectModeActive}
                 onMouseDown={this.props.handleMouseDown}
             />
@@ -79,6 +81,7 @@ class SelectMode extends React.Component {
 SelectMode.propTypes = {
     clearHoveredItem: PropTypes.func.isRequired,
     clearSelectedItems: PropTypes.func.isRequired,
+    darkTheme: PropTypes.bool,
     handleMouseDown: PropTypes.func.isRequired,
     hoveredItemId: PropTypes.number,
     isSelectModeActive: PropTypes.bool.isRequired,
@@ -91,6 +94,7 @@ SelectMode.propTypes = {
 };
 
 const mapStateToProps = state => ({
+    darkTheme: state.scratchPaint.theme.darkTheme,
     isSelectModeActive: state.scratchPaint.mode === Modes.SELECT,
     hoveredItemId: state.scratchPaint.hoveredItemId,
     selectedItems: state.scratchPaint.selectedItems

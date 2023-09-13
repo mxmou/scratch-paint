@@ -53,7 +53,8 @@ class BitOvalMode extends React.Component {
         }
     }
     shouldComponentUpdate (nextProps) {
-        return nextProps.isOvalModeActive !== this.props.isOvalModeActive;
+        return nextProps.isOvalModeActive !== this.props.isOvalModeActive ||
+            nextProps.darkTheme !== this.props.darkTheme;
     }
     componentWillUnmount () {
         if (this.tool) {
@@ -86,6 +87,7 @@ class BitOvalMode extends React.Component {
     render () {
         return (
             <OvalModeComponent
+                darkTheme={this.props.darkTheme}
                 isSelected={this.props.isOvalModeActive}
                 onMouseDown={this.props.handleMouseDown}
             />
@@ -96,6 +98,7 @@ class BitOvalMode extends React.Component {
 BitOvalMode.propTypes = {
     clearSelectedItems: PropTypes.func.isRequired,
     color: ColorStyleProptype,
+    darkTheme: PropTypes.bool,
     filled: PropTypes.bool,
     handleMouseDown: PropTypes.func.isRequired,
     isOvalModeActive: PropTypes.bool.isRequired,
@@ -110,6 +113,7 @@ BitOvalMode.propTypes = {
 
 const mapStateToProps = state => ({
     color: state.scratchPaint.color.fillColor,
+    darkTheme: state.scratchPaint.theme.darkTheme,
     filled: state.scratchPaint.fillBitmapShapes,
     isOvalModeActive: state.scratchPaint.mode === Modes.BIT_OVAL,
     selectedItems: state.scratchPaint.selectedItems,

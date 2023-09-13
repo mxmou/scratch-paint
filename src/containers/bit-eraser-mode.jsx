@@ -36,7 +36,8 @@ class BitEraserMode extends React.Component {
         }
     }
     shouldComponentUpdate (nextProps) {
-        return nextProps.isBitEraserModeActive !== this.props.isBitEraserModeActive;
+        return nextProps.isBitEraserModeActive !== this.props.isBitEraserModeActive ||
+            nextProps.darkTheme !== this.props.darkTheme;
     }
     componentWillUnmount () {
         if (this.tool) {
@@ -61,6 +62,7 @@ class BitEraserMode extends React.Component {
     render () {
         return (
             <BitEraserModeComponent
+                darkTheme={this.props.darkTheme}
                 isSelected={this.props.isBitEraserModeActive}
                 onMouseDown={this.props.handleMouseDown}
             />
@@ -71,6 +73,7 @@ class BitEraserMode extends React.Component {
 BitEraserMode.propTypes = {
     bitEraserSize: PropTypes.number.isRequired,
     clearSelectedItems: PropTypes.func.isRequired,
+    darkTheme: PropTypes.bool,
     handleMouseDown: PropTypes.func.isRequired,
     isBitEraserModeActive: PropTypes.bool.isRequired,
     onUpdateImage: PropTypes.func.isRequired
@@ -78,6 +81,7 @@ BitEraserMode.propTypes = {
 
 const mapStateToProps = state => ({
     bitEraserSize: state.scratchPaint.bitEraserSize,
+    darkTheme: state.scratchPaint.theme.darkTheme,
     isBitEraserModeActive: state.scratchPaint.mode === Modes.BIT_ERASER
 });
 const mapDispatchToProps = dispatch => ({

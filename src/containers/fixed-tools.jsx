@@ -58,6 +58,7 @@ class FixedTools extends React.Component {
                 canRedo={this.props.canRedo}
                 canUndo={this.props.canUndo}
                 name={this.props.name}
+                darkTheme={this.props.darkTheme}
                 onGroup={this.handleGroup}
                 onRedo={this.props.onRedo}
                 onSendBackward={this.handleSendBackward}
@@ -77,6 +78,7 @@ FixedTools.propTypes = {
     canRedo: PropTypes.func.isRequired,
     canUndo: PropTypes.func.isRequired,
     clearSelectedItems: PropTypes.func.isRequired,
+    darkTheme: PropTypes.bool,
     format: PropTypes.oneOf(Object.keys(Formats)),
     name: PropTypes.string,
     onRedo: PropTypes.func.isRequired,
@@ -88,6 +90,7 @@ FixedTools.propTypes = {
 
 const mapStateToProps = state => ({
     changeColorToEyeDropper: state.scratchPaint.color.eyeDropper.callback,
+    darkTheme: state.scratchPaint.theme.darkTheme,
     format: state.scratchPaint.format,
     isEyeDropping: state.scratchPaint.color.eyeDropper.active,
     mode: state.scratchPaint.mode,
